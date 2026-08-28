@@ -13,5 +13,6 @@ alwaysApply: true
 - Config `os`: `auto|mac|windows|linux`. Auto volgt `ctx.system.info().platform`. Sidecar kiest ioreg/df, nvidia-smi/WMIC, of sysfs/`df`.
 - Locales: `en`, `nl`, `fr`, `de`. Runtime-taal via config `language` (`auto` volgt `ctx.locale`).
 - Exporteer pure helpers en test met `@open-pets/plugin-sdk/testing`.
+- Licentie: MIT (`LICENSE`). Geen copyleft.
 - CHANGELOG.md bij elke wijziging, versienummers, Nederlands, geen datum.
 - Geen exploits, geen process-lists, geen credentials in bubbles of OpenPets-speech.

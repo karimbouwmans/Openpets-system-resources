@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.4
+
+- MIT-licentie toegevoegd: vrij te gebruiken, aan te passen en te verspreiden.
+
 ## 1.3.3
 
 - Config toont bovenaan een hint voor GPU/SSD: één keer `npm run install-sidecar` (kopieerbaar tekstveld), met uitleg per OS en dat het daarna bij login start.

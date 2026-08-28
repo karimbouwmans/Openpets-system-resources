@@ -44,3 +44,7 @@ Handmatig per OS: `npm run install-sidecar:mac` / `:linux` / `:windows`.
 
 - Show / hide resource HUD
 - Read resources (of klik de pet)
+
+## Licentie
+
+[MIT](LICENSE) — gebruik, kopiëren, wijzigen, verkopen: allemaal oké. Alleen de copyrightregel laten staan.

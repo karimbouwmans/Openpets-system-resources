@@ -7,7 +7,7 @@ description: Bouw en onderhoud de OpenPets system-resources plugin (CPU, RAM, GP
 
 ## Plugin
 
-- Manifest: `openpets.plugin.json` (`openpets.system-resources`, SDK v3).
+- Manifest: `openpets.plugin.json` (`openpets.system-resources`, SDK v3). Licentie: MIT.
 - Entry: `index.js`. HUD via satellite-pet links van de default pet (`pets.spawn` + `speak({ pin: true, hud })`). Nooit pinnen op de default pet: dat overschrijft Virtual Pet.
 - CPU/RAM uit `ctx.system.metrics`. GPU/SSD uit sidecar GET `http://127.0.0.1:37647/metrics?platform=`.
 - Sidecar-fetch altijd in try/catch; ontbrekende meters als `null` / label `—`. Statusregel krijgt `sidecar uit` als GPU/SSD niet binnenkomen. Fetch-timeout 2500ms.

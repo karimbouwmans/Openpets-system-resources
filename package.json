@@ -1,7 +1,8 @@
 {
   "name": "openpets-system-resources",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "private": true,
+  "license": "MIT",
   "type": "module",
   "description": "OpenPets plugin: live CPU, RAM, GPU en SSD links van de pet, zonder Virtual Pet HUD te overschrijven.",
   "scripts": {

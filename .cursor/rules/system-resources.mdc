@@ -1,18 +1,19 @@
 ---
-description: Conventies voor de OpenPets system-resources plugin (HUD, sidecar, SDK v3).
+description: Conventions for the OpenPets system-resources plugin (HUD, sidecar, SDK v3).
 alwaysApply: true
 ---
 
 # System-resources plugin
 
-- Plugin-entry is `index.js` (SDK v3, `manifestVersion: 3`). Geen relatieve JS-imports: de sandbox laadt alleen het entry-bestand.
+- Plugin entry is `index.js` (SDK v3, `manifestVersion: 3`). No relative JS imports: the sandbox loads only the entry file.
 - CPU/RAM: `ctx.system.metrics()`. GPU/SSD: sidecar `http://127.0.0.1:37647/metrics?platform=` via `network:local`.
-- HUD niet pinnen op de default pet: max 1 pin per pet, Virtual Pet gebruikt die slot. Spawn ephemeral satellite links (`pets:manage` + `pet:move`) en pin daar.
-- Sidecar: eerste install `npm run install-sidecar` (OS-detectie). macOS LaunchAgent, Linux systemd --user, Windows Scheduled Task AtLogOn. Daarna start bij login.
-- Config `sidecarHint`: teksthint in Configure (`npm run install-sidecar`); `readConfig` negeert die waarde.
-- Config `os`: `auto|mac|windows|linux`. Auto volgt `ctx.system.info().platform`. Sidecar kiest ioreg/df, nvidia-smi/WMIC, of sysfs/`df`.
-- Locales: `en`, `nl`, `fr`, `de`. Runtime-taal via config `language` (`auto` volgt `ctx.locale`).
-- Exporteer pure helpers en test met `@open-pets/plugin-sdk/testing`.
-- Licentie: MIT (`LICENSE`). Geen copyleft.
-- CHANGELOG.md bij elke wijziging, versienummers, Nederlands, geen datum.
-- Geen exploits, geen process-lists, geen credentials in bubbles of OpenPets-speech.
+- Do not pin the HUD on the default pet: max 1 pin per pet, Virtual Pet uses that slot. Spawn ephemeral satellite links (`pets:manage` + `pet:move`) and pin there.
+- Sidecar: first install `npm run install-sidecar` (OS detection). macOS LaunchAgent, Linux systemd --user, Windows Scheduled Task AtLogOn. Then it starts at login.
+- Config `sidecarHint`: text hint in Configure (`npm run install-sidecar`); `readConfig` ignores that value.
+- Config `os`: `auto|mac|windows|linux`. Auto follows `ctx.system.info().platform`. Sidecar picks ioreg/df, nvidia-smi/WMIC, or sysfs/`df`.
+- Locales: `en`, `nl`, `fr`, `de`. Runtime language via config `language` (`auto` follows `ctx.locale`).
+- Export pure helpers and test with `@open-pets/plugin-sdk/testing`.
+- License: MIT (`LICENSE`). No copyleft.
+- GitHub-facing docs (README, CHANGELOG, package description, installer output) in English. Changelog: version numbers, no dates.
+- Plugin UI locales stay `en` / `nl` / `fr` / `de`.
+- No exploits, no process lists, no credentials in bubbles or OpenPets speech.

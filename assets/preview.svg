@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540" role="img" aria-labelledby="title desc">
+  <title id="title">OpenPets System Resources development preview</title>
+  <desc id="desc">Satellite HUD with CPU, RAM, GPU and SSD meters to the left of the pet. Virtual Pet stats stay on the pet.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="desk" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#1e293b"/>
+      <stop offset="100%" stop-color="#0f172a"/>
+    </linearGradient>
+    <filter id="soft" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#020617" flood-opacity="0.45"/>
+    </filter>
+  </defs>
+  <rect width="960" height="540" fill="url(#bg)"/>
+  <circle cx="820" cy="70" r="160" fill="#1d4ed8" opacity="0.12"/>
+  <circle cx="120" cy="480" r="180" fill="#22d3ee" opacity="0.08"/>
+
+  <text x="48" y="48" fill="#94a3b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" letter-spacing="0.18em">DEVELOPMENT PREVIEW</text>
+  <text x="48" y="86" fill="#f8fafc" font-family="ui-sans-serif, system-ui, sans-serif" font-size="32" font-weight="700">System Resources</text>
+  <text x="48" y="116" fill="#93c5fd" font-family="ui-sans-serif, system-ui, sans-serif" font-size="16">Live CPU, RAM, GPU and SSD to the left of your pet</text>
+
+  <g transform="translate(70 160)" filter="url(#soft)">
+    <rect width="280" height="268" rx="22" fill="#0f172a" stroke="#334155"/>
+    <text x="22" y="36" fill="#e2e8f0" font-family="ui-sans-serif, system-ui, sans-serif" font-size="15" font-weight="600">Resources</text>
+    <text x="22" y="56" fill="#64748b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">satellite HUD · own pin slot</text>
+
+    <g transform="translate(22 78)">
+      <g stroke="#38bdf8" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="1" width="18" height="18" rx="2"/>
+        <path d="M7 7h8v8H7z"/>
+      </g>
+      <text x="32" y="10" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">CPU</text>
+      <text x="228" y="10" fill="#38bdf8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" text-anchor="end">12%</text>
+      <rect x="32" y="16" width="204" height="8" rx="4" fill="#1e293b"/>
+      <rect x="32" y="16" width="24" height="8" rx="4" fill="#22c55e"/>
+    </g>
+
+    <g transform="translate(22 126)">
+      <g stroke="#34d399" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="0" y="4" width="20" height="12" rx="2"/>
+        <path d="M4 10h4M12 8h4M12 12h2"/>
+      </g>
+      <text x="32" y="10" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">RAM</text>
+      <text x="228" y="10" fill="#34d399" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" text-anchor="end">41%</text>
+      <rect x="32" y="16" width="204" height="8" rx="4" fill="#1e293b"/>
+      <rect x="32" y="16" width="84" height="8" rx="4" fill="#22c55e"/>
+    </g>
+
+    <g transform="translate(22 174)">
+      <g stroke="#a78bfa" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="3" width="16" height="14" rx="2"/>
+        <path d="M6 7h8M6 10h5M6 13h3"/>
+      </g>
+      <text x="32" y="10" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">GPU</text>
+      <text x="228" y="10" fill="#a78bfa" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" text-anchor="end">63%</text>
+      <rect x="32" y="16" width="204" height="8" rx="4" fill="#1e293b"/>
+      <rect x="32" y="16" width="128" height="8" rx="4" fill="#22c55e"/>
+    </g>
+
+    <g transform="translate(22 222)">
+      <g stroke="#fbbf24" fill="none" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="16" height="16" rx="2"/>
+        <path d="M6 6h8v8H6z"/>
+      </g>
+      <text x="32" y="10" fill="#cbd5e1" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">SSD</text>
+      <text x="228" y="10" fill="#fbbf24" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13" text-anchor="end">74%</text>
+      <rect x="32" y="16" width="204" height="8" rx="4" fill="#1e293b"/>
+      <rect x="32" y="16" width="151" height="8" rx="4" fill="#f59e0b"/>
+    </g>
+  </g>
+
+  <g transform="translate(430 168)" filter="url(#soft)">
+    <ellipse cx="210" cy="268" rx="118" ry="18" fill="#020617" opacity="0.35"/>
+    <g transform="translate(120 40)">
+      <ellipse cx="90" cy="168" rx="78" ry="86" fill="#fb923c"/>
+      <circle cx="90" cy="78" r="52" fill="#fdba74"/>
+      <circle cx="48" cy="42" r="16" fill="#fb923c"/>
+      <circle cx="132" cy="42" r="16" fill="#fb923c"/>
+      <circle cx="72" cy="78" r="7" fill="#0f172a"/>
+      <circle cx="108" cy="78" r="7" fill="#0f172a"/>
+      <path d="M82 96c8 10 18 10 26 0" fill="none" stroke="#9a3412" stroke-width="3" stroke-linecap="round"/>
+      <ellipse cx="58" cy="188" rx="22" ry="14" fill="#fdba74"/>
+      <ellipse cx="122" cy="188" rx="22" ry="14" fill="#fdba74"/>
+      <path d="M148 120c28-8 48 18 36 42" fill="none" stroke="#ea580c" stroke-width="14" stroke-linecap="round"/>
+    </g>
+    <g transform="translate(248 86)">
+      <rect width="168" height="92" rx="16" fill="#0f172a" stroke="#334155"/>
+      <text x="16" y="28" fill="#94a3b8" font-family="ui-sans-serif, system-ui, sans-serif" font-size="11">Virtual Pet</text>
+      <text x="16" y="52" fill="#f8fafc" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">food · energy</text>
+      <text x="16" y="74" fill="#f8fafc" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">play · bond</text>
+    </g>
+  </g>
+
+  <text x="48" y="508" fill="#64748b" font-family="ui-sans-serif, system-ui, sans-serif" font-size="13">CPU/RAM from OpenPets · GPU/SSD from local sidecar on 127.0.0.1:37647</text>
+</svg>

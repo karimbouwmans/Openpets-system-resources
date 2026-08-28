@@ -18,7 +18,7 @@ export function sidecarInstallCommand(platform = process.platform, root = ROOT) 
       args: ["-NoProfile", "-ExecutionPolicy", "Bypass", "-File", path.join(root, "scripts/install-sidecar.ps1")],
     };
   }
-  throw new Error(`Geen sidecar-installer voor platform "${platform}". Gebruik macOS, Linux of Windows.`);
+  throw new Error(`No sidecar installer for platform "${platform}". Use macOS, Linux, or Windows.`);
 }
 
 function run(spec) {

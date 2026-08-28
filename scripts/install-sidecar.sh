@@ -8,7 +8,7 @@ PLIST="$HOME/Library/LaunchAgents/${LABEL}.plist"
 UID_NUM="$(id -u)"
 
 if [[ -z "$NODE" ]]; then
-  echo "node niet gevonden in PATH" >&2
+  echo "node not found in PATH" >&2
   exit 1
 fi
 
@@ -51,4 +51,4 @@ launchctl bootout "gui/${UID_NUM}/${LABEL}" >/dev/null 2>&1 || true
 launchctl bootstrap "gui/${UID_NUM}" "$PLIST"
 launchctl kickstart -k "gui/${UID_NUM}/${LABEL}"
 
-echo "Sidecar actief op http://127.0.0.1:37647/metrics"
+echo "Sidecar listening on http://127.0.0.1:37647/metrics"

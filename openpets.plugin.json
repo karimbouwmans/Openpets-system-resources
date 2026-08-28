@@ -3,7 +3,7 @@
   "id": "openpets.system-resources",
   "name": "$t:plugin.name",
   "description": "$t:plugin.description",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "runtime": "javascript",
   "icon": "plugin",
   "sdkVersion": "3.0.0",

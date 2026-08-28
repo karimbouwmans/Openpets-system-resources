@@ -11,4 +11,4 @@ $Settings = New-ScheduledTaskSettingsSet -AllowStartIfOnBatteries -DontStopIfGoi
 $Principal = New-ScheduledTaskPrincipal -UserId $env:USERNAME -LogonType Interactive -RunLevel Limited
 Register-ScheduledTask -TaskName $TaskName -Action $Action -Trigger $Trigger -Settings $Settings -Principal $Principal | Out-Null
 Start-ScheduledTask -TaskName $TaskName
-Write-Output "Sidecar actief op http://127.0.0.1:37647/metrics"
+Write-Output "Sidecar listening on http://127.0.0.1:37647/metrics"

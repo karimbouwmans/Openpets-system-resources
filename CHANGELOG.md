@@ -1,54 +1,59 @@
 # Changelog
 
+## 1.3.5
+
+- GitHub-facing docs are English: README, changelog, package description, and installer messages.
+- Added a development preview of the satellite HUD next to the pet.
+
 ## 1.3.4
 
-- MIT-licentie toegevoegd: vrij te gebruiken, aan te passen en te verspreiden.
+- MIT license: free to use, modify, and redistribute.
 
 ## 1.3.3
 
-- Config toont bovenaan een hint voor GPU/SSD: één keer `npm run install-sidecar` (kopieerbaar tekstveld), met uitleg per OS en dat het daarna bij login start.
+- Configure shows a GPU/SSD hint at the top: one-time `npm run install-sidecar` (copyable field), with per-OS notes and that it starts again at login.
 
 ## 1.3.2
 
-- Eerste install: `npm run install-sidecar` detecteert macOS, Linux of Windows en zet de persistente sidecar (LaunchAgent / systemd --user / Scheduled Task).
-- Linux herstart na login via `Restart=always` en probeert `loginctl enable-linger`. Windows-taak start bij `AtLogOn`.
+- First install: `npm run install-sidecar` detects macOS, Linux, or Windows and sets up the persistent sidecar (LaunchAgent / systemd --user / Scheduled Task).
+- Linux restarts after login via `Restart=always` and tries `loginctl enable-linger`. Windows task starts at `AtLogOn`.
 
 ## 1.3.1
 
-- GPU en SSD ontbraken omdat de metrics-sidecar niet draaide. LaunchAgent-installatie zet PATH voor `ioreg`/`df`, cache van 4s, plugin-fetch 2,5s.
-- macOS-GPU leest ook `Renderer Utilization %` als `Device Utilization %` ontbreekt.
-- Statusregel meldt `sidecar uit` als GPU/SSD niet binnenkomen.
+- GPU and SSD were missing because the metrics sidecar was not running. LaunchAgent install sets PATH for `ioreg`/`df`, 4s cache, plugin fetch 2.5s.
+- macOS GPU also reads `Renderer Utilization %` when `Device Utilization %` is absent.
+- Status line reports `sidecar offline` when GPU/SSD do not arrive.
 
 ## 1.3.0
 
-- Resource-HUD pakt de pinned slot van Virtual Pet niet meer. Meters staan op een satellite-pet links van de hoofdpet (eigen pin-slot).
-- Food, energy, play en bond blijven op de pet; CPU/RAM/GPU/SSD volgen mee bij slepen.
-- Extra permissies: `pets:read`, `pets:manage`, `pet:move`, `pet:animate`. Na update in Control Center opnieuw goedkeuren en Refresh.
+- Resource HUD no longer takes the Virtual Pet pin slot. Meters live on a satellite pet to the left of the main pet (own pin slot).
+- Food, energy, play, and bond stay on the pet; CPU/RAM/GPU/SSD follow when you drag.
+- Extra permissions: `pets:read`, `pets:manage`, `pet:move`, `pet:animate`. After update, re-approve in Control Center and Refresh.
 
 ## 1.2.2
 
-- Plugin is weer één entry-bestand: geen relatieve ESM-imports meer, want de sandbox kan `./i18n.js` niet resolven.
+- Plugin is a single entry file again: no relative ESM imports, because the sandbox cannot resolve `./i18n.js`.
 
 ## 1.2.1
 
-- Catalog-icoon gewijzigd naar `plugin`; `activity` is geen toegestane host-icon.
+- Catalog icon changed to `plugin`; `activity` is not an allowed host icon.
 
 ## 1.2.0
 
-- Sidecar werkt op macOS, Windows en Linux met per-OS GPU- en SSD-bronnen.
-- Plugin-config heeft een OS-keuze (automatisch / macOS / Windows / Linux) die als `platform` naar de sidecar gaat.
-- Windows: `nvidia-smi` of GPU Engine-counters, schijf via WMIC/CIM. Linux: `nvidia-smi` of sysfs `gpu_busy_percent`, `df` voor `/`.
-- Installatiescripts voor systemd (Linux) en Scheduled Task (Windows).
+- Sidecar works on macOS, Windows, and Linux with per-OS GPU and SSD sources.
+- Plugin config has an OS choice (automatic / macOS / Windows / Linux) sent to the sidecar as `platform`.
+- Windows: `nvidia-smi` or GPU Engine counters, disk via WMIC/CIM. Linux: `nvidia-smi` or sysfs `gpu_busy_percent`, `df` for `/`.
+- Install scripts for systemd (Linux) and Scheduled Task (Windows).
 
 ## 1.1.0
 
-- Franse en Duitse vertalingen toegevoegd (`locales/fr.json`, `locales/de.json`).
-- Taal is kiesbaar in de plugin-config: automatisch, Nederlands, English, Français, Deutsch.
-- HUD, statusregel en pet-spraak volgen de gekozen taal, niet alleen de OpenPets-hostlocale.
+- French and German translations (`locales/fr.json`, `locales/de.json`).
+- Language is selectable in plugin config: automatic, Nederlands, English, Français, Deutsch.
+- HUD, status line, and pet speech follow the chosen language, not only the OpenPets host locale.
 
 ## 1.0.0
 
-- Eerste OpenPets-plugin met een pinned HUD voor CPU, RAM, GPU en SSD.
-- CPU en RAM komen uit `ctx.system.metrics`; GPU en SSD via een lokale sidecar op poort 37647.
-- Commands om de HUD te tonen, te verbergen of de meters te laten voorlezen.
-- Waarschuwing bij hoge load, assistant-capability `resources.get`, en LaunchAgent-installatie voor de sidecar.
+- First OpenPets plugin with a pinned HUD for CPU, RAM, GPU, and SSD.
+- CPU and RAM from `ctx.system.metrics`; GPU and SSD via a local sidecar on port 37647.
+- Commands to show, hide, or read the meters.
+- High-load warning, assistant capability `resources.get`, and LaunchAgent install for the sidecar.

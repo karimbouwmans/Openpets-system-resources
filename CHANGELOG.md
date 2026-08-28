@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.3.6
+
+- README preview uses real OpenPets screenshots of the satellite HUD and the main pet.
+
 ## 1.3.5
 
 - GitHub-facing docs are English: README, changelog, package description, and installer messages.

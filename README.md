@@ -2,7 +2,10 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-![Development preview: satellite HUD with CPU, RAM, GPU and SSD to the left of the pet](assets/preview.svg)
+<p align="center">
+  <img src="assets/preview-hud.png" alt="Live resource HUD: CPU, RAM, GPU, SSD on the satellite pet" width="340" />
+  <img src="assets/preview-pet.png" alt="Virtual Pet food, energy, play and bond stay on the main pet" width="340" />
+</p>
 
 Live CPU, RAM, GPU, and SSD **to the left of your pet**. Virtual Pet stats (food, energy, play, bond) stay on the pet.
 

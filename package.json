@@ -1,0 +1,18 @@
+{
+  "name": "openpets-system-resources",
+  "version": "1.3.3",
+  "private": true,
+  "type": "module",
+  "description": "OpenPets plugin: live CPU, RAM, GPU en SSD links van de pet, zonder Virtual Pet HUD te overschrijven.",
+  "scripts": {
+    "test": "node test.js && node sidecar/collect.test.js && node scripts/install-sidecar.test.js",
+    "sidecar": "node sidecar/metrics-server.mjs",
+    "install-sidecar": "node scripts/install-sidecar.mjs",
+    "install-sidecar:mac": "bash scripts/install-sidecar.sh",
+    "install-sidecar:linux": "bash scripts/install-sidecar-linux.sh",
+    "install-sidecar:windows": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/install-sidecar.ps1"
+  },
+  "devDependencies": {
+    "@open-pets/plugin-sdk": "^3.3.0"
+  }
+}

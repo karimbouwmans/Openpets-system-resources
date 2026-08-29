@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.4.1
+
+- README plus `docs/gpu-ssd.md`: what to install (Node.js, this repo) and what to run (`npm run install-sidecar`) so GPU and SSD show on catalog or unpacked installs.
+
 ## 1.4.0
 
 - Catalog package is CPU/RAM-only: HUD, copy, and Configure no longer advertise an uninstallable GPU/SSD sidecar.

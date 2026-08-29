@@ -7,7 +7,7 @@ alwaysApply: true
 
 - Plugin entry is `index.js` (SDK v3, `manifestVersion: 3`). No relative JS imports: the sandbox loads only the entry file.
 - Catalog ZIP: manifest, `index.js`, declared assets, locales, `LICENSE` only. Never `package.json`, `scripts/`, or `sidecar/`. Build with `npm run package:catalog`.
-- Catalog copy and HUD are CPU/RAM from `ctx.system.metrics()`. GPU/SSD only if a sidecar is already on `http://127.0.0.1:37647/metrics?platform=` (`network:local`). Do not advertise `npm run install-sidecar` in catalog Configure.
+- Catalog copy and HUD are CPU/RAM from `ctx.system.metrics()`. GPU/SSD only if a sidecar is already on `http://127.0.0.1:37647/metrics?platform=` (`network:local`). Do not advertise `npm run install-sidecar` in catalog Configure; `docs/gpu-ssd.md` is the install/run how-to.
 - Do not pin the HUD on the default pet: max 1 pin per pet, Virtual Pet uses that slot. Spawn ephemeral satellite links (`pets:manage` + `pet:move`) and pin there.
 - Sidecar (unpacked/dev only): `npm run install-sidecar` (OS detection). macOS LaunchAgent, Linux systemd --user, Windows Scheduled Task AtLogOn.
 - Host OS for sidecar queries comes from `ctx.system.info().platform`, not a config field.

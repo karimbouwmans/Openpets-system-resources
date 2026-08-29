@@ -11,7 +11,7 @@ description: Build and maintain the OpenPets system-resources plugin (CPU/RAM ca
 - Entry: `index.js`. HUD via satellite-pet links of the default pet (`pets.spawn` + `speak({ pin: true, hud })`). Never pin on the default pet: that overwrites Virtual Pet.
 - Catalog is CPU/RAM from `ctx.system.metrics`. GPU/SSD only when a sidecar already answers GET `http://127.0.0.1:37647/metrics?platform=`.
 - Sidecar fetch always in try/catch. Without sidecar, HUD stays 2 items; no `sidecar offline` status. Fetch timeout 2500ms.
-- Catalog ZIP cannot run `npm run install-sidecar`. Do not put that command in Configure.
+- Catalog ZIP cannot run `npm run install-sidecar`. Do not put that command in Configure. User how-to: `docs/gpu-ssd.md`.
 - Languages: `locales/{en,nl,fr,de}.json`. Config `language` overrides host locale for HUD/speech.
 
 ## Catalog package

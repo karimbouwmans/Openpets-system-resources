@@ -9,7 +9,7 @@
 
 Live **CPU and RAM** to the left of your pet. Virtual Pet stats (food, energy, play, bond) stay on the pet.
 
-Catalog installs are CPU/RAM-only. The sandbox cannot run `npm run install-sidecar`, and the catalog ZIP does not include `package.json`, `scripts/`, or `sidecar/`. GPU and SSD appear only if a local sidecar is already listening on `127.0.0.1:37647`.
+**GPU and SSD:** catalog install does not include them. Follow **[See GPU and SSD](docs/gpu-ssd.md)** — install [Node.js](https://nodejs.org/), clone this repo, run `npm run install-sidecar`, approve `network:local` in OpenPets.
 
 ## Catalog package
 
@@ -18,31 +18,11 @@ npm test
 npm run package:catalog
 ```
 
-Writes `dist/openpets.system-resources-1.4.0.zip` plus a `.sha256` file. The ZIP contains only the manifest, `index.js`, declared icons, locales, and `LICENSE`.
+Writes `dist/openpets.system-resources-1.4.1.zip` plus a `.sha256` file. The ZIP contains only the manifest, `index.js`, declared icons, locales, and `LICENSE`.
 
-## Unpacked / developer sidecar (optional GPU and SSD)
+## Unpacked plugin load
 
-Needs [Node.js](https://nodejs.org/) on PATH. From a clone of this repo:
-
-```bash
-npm run install-sidecar
-```
-
-The script picks the OS:
-
-| OS | What gets installed | After reboot / login |
-|---|---|---|
-| macOS | LaunchAgent `nl.axtro.openpets-metrics` | `RunAtLoad` + `KeepAlive` |
-| Linux | systemd user `openpets-metrics.service` | `enable --now` + linger when possible |
-| Windows | Scheduled Task `OpenPetsMetricsSidecar` | trigger `AtLogOn` |
-
-Check: `curl -s http://127.0.0.1:37647/health` → `{"ok":true}` (Windows: `Invoke-RestMethod http://127.0.0.1:37647/health`).
-
-Foreground without a persistent service: `npm run sidecar`.
-
-Load unpacked: OpenPets → Plugins → Developer Mode → **Load unpacked plugin folder**. Approve `system:metrics`, `network:local`, `pets:manage`, and `pet:move`.
-
-Manual per OS: `npm run install-sidecar:mac` / `:linux` / `:windows`.
+Developer Mode → **Load unpacked plugin folder**. Approve `system:metrics`, `network:local`, `pets:manage`, and `pet:move`. GPU/SSD: [See GPU and SSD](docs/gpu-ssd.md).
 
 ## Config
 
@@ -64,10 +44,10 @@ npm test
 flowchart LR
   subgraph OpenPets
     P[Default pet<br/>Virtual Pet HUD]
-    S[Satellite pet<br/>CPU RAM]
+    S[Satellite pet<br/>CPU RAM GPU SSD]
   end
-  M["ctx.system.metrics"] --> S
-  C["optional sidecar 127.0.0.1:37647"] -.-> S
+  M["ctx.system.metrics CPU RAM"] --> S
+  C["sidecar 127.0.0.1:37647 GPU SSD"] --> S
   P --- S
 ```
 

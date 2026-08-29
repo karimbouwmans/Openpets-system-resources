@@ -1,12 +1,11 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
-import { CATALOGS, resolveLanguage, resolveOs, t } from "./index.js";
+import { CATALOGS, resolveLanguage, t } from "./index.js";
 import {
   ALERT_COOLDOWN_MS,
   FALLBACK_PET_ID,
   SATELLITE_OFFSET_X,
   SCHEDULE_ID,
-  SIDECAR_URL,
   clampPercent,
   collectSnapshot,
   hottestMetric,
@@ -32,7 +31,6 @@ const PERMISSIONS = [
   "pet:speak",
   "pet:reaction",
   "pet:pin",
-  "pet:interact",
   "pet:move",
   "pet:animate",
   "pets:read",
@@ -43,8 +41,6 @@ const PERMISSIONS = [
   "status",
   "events",
   "system:metrics",
-  "network",
-  "network:local",
 ];
 const LOCALES = {
   en: JSON.parse(await readFile(new URL("./locales/en.json", import.meta.url), "utf8")),
@@ -73,12 +69,12 @@ assert.equal(toneFor(75), "amber");
 assert.equal(toneFor(95), "red");
 assert.equal(toneFor(null), "slate");
 
-const merged = mergeSnapshot({ cpuPercent: 11, memUsedPercent: 64 }, { gpuPercent: 8, ssdUsedPercent: 30 });
+const merged = mergeSnapshot({ cpuPercent: 11, memUsedPercent: 64, gpuPercent: 8, diskUsedPercent: 30 });
 assert.equal(merged.cpu, 11);
 assert.equal(merged.ram, 64);
 assert.equal(merged.gpu, 8);
 assert.equal(merged.ssd, 30);
-assert.equal(merged.sidecarOnline, true);
+assert.equal(merged.extendedMetricsAvailable, true);
 assert.equal(hottestMetric(merged).key, "ram");
 
 const cfg = readConfig({ pollSeconds: 3, alertPercent: 140, showHud: false });
@@ -88,11 +84,6 @@ assert.equal(cfg.showHud, false);
 assert.equal(cfg.language, "en");
 assert.equal(readConfig({ language: "fr" }, "de").language, "fr");
 assert.equal(readConfig({ language: "auto" }, "de-DE").language, "de");
-assert.equal(resolveOs("auto", "win"), "windows");
-assert.equal(resolveOs("linux", "mac"), "linux");
-  assert.equal(readConfig({ os: "windows" }, "en", "mac").os, "mac");
-  assert.equal(readConfig({ os: "auto" }, "en", "linux").os, "linux");
-  assert.equal(readConfig({ sidecarHint: "ignore-me" }, "en", "mac").os, "mac");
 assert.deepEqual(satellitePosition({ position: { x: 100, y: 40 } }), { x: 100 + SATELLITE_OFFSET_X, y: 40 });
 assert.equal(resolveCatalogPetId({ pets: { default: { id: "default" } } }, [{ id: "default", kind: "default" }]), FALLBACK_PET_ID);
 assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "meowbyte");
@@ -130,8 +121,7 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
 
 {
   const h = createTestHarness(register, { permissions: PERMISSIONS, locales: LOCALES, nowMs: 3_000_000 });
-  h.net.mock(SIDECAR_URL, { json: { gpuPercent: 22, ssdUsedPercent: 71 } });
-  h.system.setMetrics({ cpuPercent: 18, memUsedPercent: 55 });
+  h.system.setMetrics({ cpuPercent: 18, memUsedPercent: 55, gpuPercent: 22, diskUsedPercent: 71 });
   await h.start();
   const items = h.calls.bubbles.at(-1).spec.hud.items;
   assert.equal(items.length, 4);
@@ -139,11 +129,11 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
     items.map((item) => item.value),
     [18, 55, 22, 71],
   );
-  h.expectNetCall("127.0.0.1:37647/metrics");
   if (typeof h.runCapability === "function") {
     const snapshot = await h.runCapability("resources.get", {});
     assert.equal(snapshot.gpuPercent, 22);
-    assert.equal(snapshot.sidecarOnline, true);
+    assert.equal(snapshot.diskUsedPercent, 71);
+    assert.equal(snapshot.extendedMetricsAvailable, true);
   }
   await h.runCommand("snapshot");
   h.expectSpoke(/CPU 18%/);
@@ -221,36 +211,6 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
   h.system.setMetrics({ cpuPercent: 91, memUsedPercent: 40 });
   await h.start();
   h.expectSpoke("CPU zit op 91 procent.");
-  h.expectNoErrors();
-  await h.stop();
-}
-
-{
-  const h = createTestHarness(register, {
-    permissions: PERMISSIONS,
-    locales: LOCALES,
-    nowMs: 9_000_000,
-  });
-  h.system.set({ platform: "win" });
-  h.net.mock(SIDECAR_URL, { json: { gpuPercent: 41, ssdUsedPercent: 63 } });
-  await h.start();
-  h.expectNetCall("platform=windows");
-  assert.equal(h.calls.bubbles.at(-1).spec.hud.items[2].value, 41);
-  h.expectNoErrors();
-  await h.stop();
-}
-
-{
-  const h = createTestHarness(register, {
-    permissions: PERMISSIONS,
-    locales: LOCALES,
-    nowMs: 10_000_000,
-  });
-  h.system.set({ platform: "linux" });
-  h.net.mock(SIDECAR_URL, { json: { gpuPercent: 9, ssdUsedPercent: 44 } });
-  await h.start();
-  h.expectNetCall("platform=linux");
-  assert.equal(h.calls.bubbles.at(-1).spec.hud.items[3].value, 44);
   h.expectNoErrors();
   await h.stop();
 }

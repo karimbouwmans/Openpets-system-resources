@@ -90,10 +90,9 @@ assert.equal(readConfig({ language: "fr" }, "de").language, "fr");
 assert.equal(readConfig({ language: "auto" }, "de-DE").language, "de");
 assert.equal(resolveOs("auto", "win"), "windows");
 assert.equal(resolveOs("linux", "mac"), "linux");
-assert.equal(readConfig({ os: "windows" }, "en", "mac").os, "windows");
-assert.equal(readConfig({ os: "auto" }, "en", "linux").os, "linux");
-assert.equal(readConfig({ sidecarHint: "ignore-me" }, "en", "mac").os, "mac");
-assert.equal(t("nl", "config.sidecarHint.label"), "GPU- en SSD-sidecar");
+  assert.equal(readConfig({ os: "windows" }, "en", "mac").os, "mac");
+  assert.equal(readConfig({ os: "auto" }, "en", "linux").os, "linux");
+  assert.equal(readConfig({ sidecarHint: "ignore-me" }, "en", "mac").os, "mac");
 assert.deepEqual(satellitePosition({ position: { x: 100, y: 40 } }), { x: 100 + SATELLITE_OFFSET_X, y: 40 });
 assert.equal(resolveCatalogPetId({ pets: { default: { id: "default" } } }, [{ id: "default", kind: "default" }]), FALLBACK_PET_ID);
 assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "meowbyte");
@@ -106,13 +105,11 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
   const bubble = h.calls.bubbles.at(-1);
   assert.notEqual(bubble.petId, "default", "resource HUD must not steal the default pet pin slot");
   assert.deepEqual(h.calls.spawnedPets, [FALLBACK_PET_ID]);
-  assert.equal(bubble.spec.hud.items.length, 4);
+  assert.equal(bubble.spec.hud.items.length, 2);
   assert.equal(bubble.spec.hud.items[0].value, 5);
   assert.equal(bubble.spec.hud.items[1].value, 40);
-  assert.equal(bubble.spec.hud.items[2].label, "GPU —");
-  assert.equal(bubble.spec.hud.items[3].label, "SSD —");
   assert.match(String(h.calls.status.at(-1).text), /CPU 5% · RAM 40%/);
-  assert.match(String(h.calls.status.at(-1).text), /sidecar offline/);
+  assert.doesNotMatch(String(h.calls.status.at(-1).text), /sidecar/i);
   h.expectNoErrors();
   await h.stop();
 }
@@ -137,6 +134,7 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
   h.system.setMetrics({ cpuPercent: 18, memUsedPercent: 55 });
   await h.start();
   const items = h.calls.bubbles.at(-1).spec.hud.items;
+  assert.equal(items.length, 4);
   assert.deepEqual(
     items.map((item) => item.value),
     [18, 55, 22, 71],
@@ -194,7 +192,7 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
   h.system.setMetrics({ cpuPercent: 18, memUsedPercent: 55 });
   await h.start();
   await h.runCommand("snapshot");
-  h.expectSpoke("CPU 18%, RAM 55%, GPU —, SSD —.");
+  h.expectSpoke("CPU 18%, RAM 55%.");
   h.expectNoErrors();
   await h.stop();
 }
@@ -232,8 +230,8 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
     permissions: PERMISSIONS,
     locales: LOCALES,
     nowMs: 9_000_000,
-    config: { os: "windows" },
   });
+  h.system.set({ platform: "win" });
   h.net.mock(SIDECAR_URL, { json: { gpuPercent: 41, ssdUsedPercent: 63 } });
   await h.start();
   h.expectNetCall("platform=windows");
@@ -247,7 +245,6 @@ assert.equal(resolveCatalogPetId({ pets: { default: { id: "meowbyte" } } }), "me
     permissions: PERMISSIONS,
     locales: LOCALES,
     nowMs: 10_000_000,
-    config: { os: "linux" },
   });
   h.system.set({ platform: "linux" });
   h.net.mock(SIDECAR_URL, { json: { gpuPercent: 9, ssdUsedPercent: 44 } });

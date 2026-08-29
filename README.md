@@ -3,17 +3,26 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 <p align="center">
-  <img src="assets/preview-hud.png" alt="Live resource HUD: CPU, RAM, GPU, SSD on the satellite pet" width="340" />
+  <img src="assets/preview-hud.png" alt="Live resource HUD on the satellite pet" width="340" />
   <img src="assets/preview-pet.png" alt="Virtual Pet food, energy, play and bond stay on the main pet" width="340" />
 </p>
 
-Live CPU, RAM, GPU, and SSD **to the left of your pet**. Virtual Pet stats (food, energy, play, bond) stay on the pet.
+Live **CPU and RAM** to the left of your pet. Virtual Pet stats (food, energy, play, bond) stay on the pet.
 
-GPU and SSD come from a local sidecar. OpenPets plugin load does **not** install it: run the installer once per machine, then it starts at login.
+Catalog installs are CPU/RAM-only. The sandbox cannot run `npm run install-sidecar`, and the catalog ZIP does not include `package.json`, `scripts/`, or `sidecar/`. GPU and SSD appear only if a local sidecar is already listening on `127.0.0.1:37647`.
 
-## First install
+## Catalog package
 
-Needs [Node.js](https://nodejs.org/) on PATH. Then in this folder:
+```bash
+npm test
+npm run package:catalog
+```
+
+Writes `dist/openpets.system-resources-1.4.0.zip` plus a `.sha256` file. The ZIP contains only the manifest, `index.js`, declared icons, locales, and `LICENSE`.
+
+## Unpacked / developer sidecar (optional GPU and SSD)
+
+Needs [Node.js](https://nodejs.org/) on PATH. From a clone of this repo:
 
 ```bash
 npm run install-sidecar
@@ -29,21 +38,14 @@ The script picks the OS:
 
 Check: `curl -s http://127.0.0.1:37647/health` → `{"ok":true}` (Windows: `Invoke-RestMethod http://127.0.0.1:37647/health`).
 
-Skip this step and CPU/RAM still work; GPU/SSD stay `—` / status `sidecar offline`.
-
 Foreground without a persistent service: `npm run sidecar`.
 
-## Load in OpenPets
-
-1. Sidecar as above.
-2. OpenPets → Plugins → Developer Mode → **Load unpacked plugin folder**.
-3. Approve `system:metrics`, `network:local`, `pets:manage`, and `pet:move`.
+Load unpacked: OpenPets → Plugins → Developer Mode → **Load unpacked plugin folder**. Approve `system:metrics`, `network:local`, `pets:manage`, and `pet:move`.
 
 Manual per OS: `npm run install-sidecar:mac` / `:linux` / `:windows`.
 
 ## Config
 
-- **Operating system**: automatic (OpenPets) / macOS / Windows / Linux — GPU/SSD sources for the sidecar
 - **Language**: automatic / Nederlands / English / Français / Deutsch
 - HUD on/off, poll 5–60s, alert threshold, speak on high load
 
@@ -58,16 +60,14 @@ Manual per OS: `npm run install-sidecar:mac` / `:linux` / `:windows`.
 npm test
 ```
 
-Then sidecar health: `curl -s http://127.0.0.1:37647/metrics`.
-
 ```mermaid
 flowchart LR
   subgraph OpenPets
     P[Default pet<br/>Virtual Pet HUD]
-    S[Satellite pet<br/>CPU RAM GPU SSD]
+    S[Satellite pet<br/>CPU RAM]
   end
   M["ctx.system.metrics"] --> S
-  C["127.0.0.1:37647 sidecar"] --> S
+  C["optional sidecar 127.0.0.1:37647"] -.-> S
   P --- S
 ```
 

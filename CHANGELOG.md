@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.4.0
+
+- Catalog package is CPU/RAM-only: HUD, copy, and Configure no longer advertise an uninstallable GPU/SSD sidecar.
+- GPU and SSD still appear when a sidecar is already running on loopback; OS is taken from the host, not from a config field.
+- `npm run package:catalog` writes a catalog ZIP with only the manifest, entry, declared assets, locales, and license.
+
 ## 1.3.6
 
 - README preview uses real OpenPets screenshots of the satellite HUD and the main pet.

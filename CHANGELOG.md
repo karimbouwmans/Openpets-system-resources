@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.5.0
+
+- Read optional aggregate GPU and system-volume usage directly from OpenPets `system:metrics` when the host supports them.
+- Removed the loopback sidecar, persistent installers, and the network permissions they required. Catalog installs now use the same bounded host capability as unpacked plugins.
+
 ## 1.4.1
 
 - README plus `docs/gpu-ssd.md`: what to install (Node.js, this repo) and what to run (`npm run install-sidecar`) so GPU and SSD show on catalog or unpacked installs.
